@@ -1,0 +1,12 @@
+*{
+    text-align: center;  
+}
+
+button, div, form, input {
+      margin: 10px;
+    }
+
+body{
+    background-image: url(../images/babypolar.jpg);
+    
+}

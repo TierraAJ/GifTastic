@@ -3,47 +3,41 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Beautiful Countries</title>
-  <style type="text/css">
-    button,
-    div,
-    form,
-    input {
-      margin: 10px;
-    }
-  </style>
+  <title>Animals</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
 </head>
 
 <body>
 
   <div class="container">
-    <h1>Look at these countries!</h1>
+    <h1>Look at these animals!</h1>
 
-    <!-- Countries will Get Dumped Here -->
-    <div id="countries-view"></div>
+    <!-- Animals will Get Dumped Here -->
+    <div id="animals-view"></div>
 
     <!-- Rendered Buttons will get Dumped Here  -->
     <div id="buttons-view"></div>
 
-    <form id="country-form">
-      <label for="country-input">Click to Add a Country!</label>
-      <input type="text" id="country-input">
+    <form id="animal-form">
+      <label for="animal-input">Click to Add an Animal!</label>
+      <input type="text" id="animal-input">
       <br>
 
-      <!-- Button triggers new country to be added -->
-      <input id="add-country" type="submit" value="Click to Add a Country!">
+      <!-- Button triggers new animal to be added -->
+      <input id="add-animal" type="submit" value="Click to Add an Animal!">
     </form>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
-      // Initial array of countries
-      var countries = ["United States", "Thailand", "Dubai", "South Korea"];
+      // Initial array of animals
+      var animalType = ["dog", "tiger", "iguana", "horse"];
 
-      // displayCountryInfo function re-renders the HTML to display the appropriate content
-      function displayCountryInfo() {
+      // displayAnimalInfo function re-renders the HTML to display the appropriate content
+      function displayAnimalInfo() {
 
         var country = $(this).attr("data-name");
-        var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=oEC0tiZKmdVJKD4Zg3BWI0B0IYogrEHi&q=" + countries + "&limit=6&offset=0&rating=G&lang=en";
+        var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=oEC0tiZKmdVJKD4Zg3BWI0B0IYogrEHi&tag=animal+baby+" + animalType + "&limit=6&offset=0&rating=G&lang=en";
 
         // Creating an AJAX call for the specific country button being clicked
         $.ajax({
@@ -53,68 +47,68 @@
         
         // After the data from the AJAX request comes back
         .then(function(response) {
-        
-        // Creating a div to hold the country
-        var countryDiv = $("<div class='country'>");
 
-        // Retrieving the URL for the image
-        var imageURL = response.data.image_original_url;
+        // Creating a div to hold the animal type
+        var animalDiv = $("<div class='animal'>");        
+
+       // Saving the image_original_url property
+        var animalImgURL = response.data.image_original_url;
 
         // Creating and storing an image tag
         var image = $("<img>");
-
+        
         // Setting the catImage src attribute to imageUrl
-        image.attr("src", imageUrl);
+        image.attr("src", animalImgUrl);
         image.attr("alt", "image");
 
         // Appending the image
-        countryDiv.append(image);
+        animalDiv.append(image);
 
-        // Putting the entire country above the previous countries
-        $("#countries-view").prepend(countryDiv);
+        // Putting the entire animal type above the previous animal types
+        $("#animals-view").prepend(animalDiv);
         });
 
       }
 
-      // Function for displaying country data
+      // Function for displaying animal data
       function renderButtons() {
 
-        // Deleting the countries prior to adding new countries
+        // Deleting the animals prior to adding new animals
         // (this is necessary otherwise you will have repeat buttons)
         $("#buttons-view").empty();
 
-        // Looping through the array of countries
-        for (var i = 0; i < countries.length; i++) {
+        // Looping through the array of animals
+        for (var i = 0; i < animalType.length; i++) {
 
-          // Then dynamicaly generating buttons for each country in the array
+          // Then dynamicaly generating buttons for each animal in the array
           // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
           var a = $("<button>");
-          // Adding a class of country-btn to our button
-          a.addClass("country-btn");
+          // Adding a class of animal-btn to our button
+          a.addClass("animal-btn");
           // Adding a data-attribute
-          a.attr("data-name", countries[i]);
+          a.attr("data-name", animalType[i]);
           // Providing the initial button text
-          a.text(countries[i]);
+          a.text(animalType[i]);
           // Adding the button to the buttons-view div
           $("#buttons-view").append(a);
         }
       }
 
-      // This function handles events where a country button is clicked
-      $("#add-country").on("click", function(event) {
+      // This function handles events where a animal button is clicked
+      $("#add-animal").on("click", function(event) {
         event.preventDefault();
         // This line grabs the input from the textbox
-        var country = $("#country-input").val().trim();
+        var animal = $("#animal-input").val().trim();
 
-        // Adding country from the textbox to our array
-        countries.push(country);
+        // Adding animal from the textbox to our array
+        animal.push(animal);
 
-        // Calling renderButtons which handles the processing of our country array
+        // Calling renderButtons which handles the processing of our animal array
         renderButtons();
       });
 
-      // Adding a click event listener to all elements with a class of "country-btn"
-      $(document).on("click", ".country-btn", displayCountryInfo);
+      // Adding a click event listener to all elements with a class of "animal-btn"
+      $(document).on("click", ".animal-btn", displayAnimalInfo);
 
       // Calling the renderButtons function to display the intial buttons
       renderButtons();
