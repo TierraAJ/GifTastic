@@ -13,8 +13,7 @@
   <div class="container">
     <h1>Look at these animals!</h1>
 
-    <!-- Animals will Get Dumped Here -->
-    <div id="animals-view"></div>
+
 
     <!-- Rendered Buttons will get Dumped Here  -->
     <div id="buttons-view"></div>
@@ -28,6 +27,9 @@
       <input id="add-animal" type="submit" value="Click to Add an Animal!">
     </form>
 
+    <!-- Animals will Get Dumped Here -->
+    <div id="animals-view"></div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
       // Initial array of animals
@@ -36,10 +38,12 @@
       // displayAnimalInfo function re-renders the HTML to display the appropriate content
       function displayAnimalInfo() {
 
-        var country = $(this).attr("data-name");
-        var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=oEC0tiZKmdVJKD4Zg3BWI0B0IYogrEHi&tag=animal+baby+" + animalType + "&limit=6&offset=0&rating=G&lang=en";
+        var animalType = $(this).attr("data-name");
+        var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=oEC0tiZKmdVJKD4Zg3BWI0B0IYogrEHi&q=animal+baby+" + animalType + "&limit=6&offset=0&rating=G&lang=en";
+        
+        console.log(animalType);
 
-        // Creating an AJAX call for the specific country button being clicked
+        // Creating an AJAX call for the specific animal button being clicked
         $.ajax({
           url: queryURL,
           method: "GET"
@@ -47,25 +51,41 @@
         
         // After the data from the AJAX request comes back
         .then(function(response) {
-
-        // Creating a div to hold the animal type
-        var animalDiv = $("<div class='animal'>");        
-
-       // Saving the image_original_url property
-        var animalImgURL = response.data.image_original_url;
-
-        // Creating and storing an image tag
-        var image = $("<img>");
         
-        // Setting the catImage src attribute to imageUrl
-        image.attr("src", animalImgUrl);
-        image.attr("alt", "image");
+        console.log(response);
 
-        // Appending the image
-        animalDiv.append(image);
+        $("#animals-view").empty();
+        
+        var arrayResult = response.data;
 
-        // Putting the entire animal type above the previous animal types
-        $("#animals-view").prepend(animalDiv);
+        console.log(arrayResult);
+
+        for (var i = 0; i < arrayResult.length; i++){
+
+            // Creating a div to hold the animal type
+            var animalDiv = $("<div>");        
+
+            // Saving the image_original_url property
+            var stillImgURL = arrayResult[i].images.fixed_height_still.url;
+            var animatedImgURL = arrayResult[i].images.fixed_height.url;
+
+            // Creating and storing an image tag
+            var image = $("<img class='animal'>");
+            
+            // Setting the catImage src attribute to imageUrl
+            image.attr("src", stillImgURL);
+            image.attr("alt", "image");
+
+            image.attr("data-still-img", stillImgURL);
+            image.attr("data-animated-img", animatedImgURL);
+            image.attr("data-state", "still");
+
+            // Appending the image
+            animalDiv.append(image);
+
+            // Putting the entire animal type above the previous animal types
+            $("#animals-view").prepend(animalDiv);
+        }
         });
 
       }
@@ -101,7 +121,9 @@
         var animal = $("#animal-input").val().trim();
 
         // Adding animal from the textbox to our array
-        animal.push(animal);
+        animalType.push(animal);
+
+        $("#animal-input").val("");
 
         // Calling renderButtons which handles the processing of our animal array
         renderButtons();
@@ -109,6 +131,21 @@
 
       // Adding a click event listener to all elements with a class of "animal-btn"
       $(document).on("click", ".animal-btn", displayAnimalInfo);
+
+      $(document).on("click", ".animal", function() {
+          var imgState = $(this).attr("data-state");
+
+          if (imgState == "still"){
+              var animatedState = $(this).attr("data-animated-img");
+              $(this).attr("src", animatedState);
+              $(this).attr("data-state", "animated");
+          }
+          else {
+            var stillState = $(this).attr("data-still-img");
+              $(this).attr("src", stillState);
+              $(this).attr("data-state", "still");
+          }
+      });
 
       // Calling the renderButtons function to display the intial buttons
       renderButtons();
