@@ -1,5 +1,11 @@
 *{
-    text-align: center;  
+    text-align: center; 
+    font-family: 'Amatic SC', cursive;
+    font-size: 25px; 
+}
+
+h1{
+    font-size: 65px;
 }
 
 button, div, form, input {
