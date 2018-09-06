@@ -7,7 +7,7 @@ function displayAnimalInfo() {
   var animalType = $(this).attr("data-name");
   var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=oEC0tiZKmdVJKD4Zg3BWI0B0IYogrEHi&q=animal+baby+" + animalType + "&limit=6&offset=0&rating=G&lang=en";
   
-  console.log(animalType);
+  //console.log(animalType);
 
   // Creating an AJAX call for the specific animal button being clicked
   $.ajax({
