@@ -21,7 +21,7 @@ function displayAnimalInfo() {
   console.log(response);
 
   //$("#animals-view").empty();
-	$(".carousel-inner").empty();
+	//$(".carousel-inner").empty();
   
   var arrayResult = response.data;
 
@@ -102,7 +102,9 @@ $(document).on("click", ".animal-btn", displayAnimalInfo);
 
 $(document).on("click", ".animal", function() {
     var imgState = $(this).attr("data-state");
-
+	//Empty Bootstrap carousel prior to loading new images 
+	$(".carousel-inner").empty();
+	
     if (imgState == "still"){
         var animatedState = $(this).attr("data-animated-img");
         $(this).attr("src", animatedState);
