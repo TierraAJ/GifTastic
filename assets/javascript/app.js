@@ -98,12 +98,15 @@ $("#add-animal").on("click", function(event) {
 });
 
 // Adding a click event listener to all elements with a class of "animal-btn"
-$(document).on("click", ".animal-btn", displayAnimalInfo);
+//$(document).on("click", ".animal-btn", displayAnimalInfo);
+$(document).on("click", ".animal-btn", function () {
+	//Empty Bootstrap carousel prior to loading new images 
+	$(".carousel-inner").empty();
+	displayAnimalInfo();
+});
 
 $(document).on("click", ".animal", function() {
     var imgState = $(this).attr("data-state");
-	//Empty Bootstrap carousel prior to loading new images 
-	$(".carousel-inner").empty();
 	
     if (imgState == "still"){
         var animatedState = $(this).attr("data-animated-img");
