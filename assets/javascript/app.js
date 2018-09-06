@@ -49,7 +49,8 @@ function displayAnimalInfo() {
       animalDiv.append(image);
 
       // Putting the entire animal type above the previous animal types
-      $("#animals-view").prepend(animalDiv);
+      //$("#animals-view").prepend(animalDiv);
+	  $(".carousel-inner").prepend(animalDiv);
   }
   });
 
