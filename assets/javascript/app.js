@@ -29,14 +29,14 @@ function displayAnimalInfo() {
   for (var i = 0; i < arrayResult.length; i++){
 
       // Creating a div to hold the animal type
-      var animalDiv = $("<div>");        
+      var animalDiv = $("<div class='carousel-item'>");        
 
       // Saving the image_original_url property
       var stillImgURL = arrayResult[i].images.fixed_height_still.url;
       var animatedImgURL = arrayResult[i].images.fixed_height.url;
 
       // Creating and storing an image tag
-      var image = $("<img class='animal'>");
+      var image = $("<img class='d-block w-100 animal'>");
       
       // Setting the catImage src attribute to imageUrl
       image.attr("src", animatedImgURL);
