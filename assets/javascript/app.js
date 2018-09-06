@@ -70,7 +70,7 @@ function renderButtons() {
     // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
     var a = $("<button>");
     // Adding a class of animal-btn to our button
-    a.addClass("animal-btn");
+    a.addClass("animal-btn", "btn btn-info");
     // Adding a data-attribute
     a.attr("data-name", animalType[i]);
     // Providing the initial button text
