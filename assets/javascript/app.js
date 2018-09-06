@@ -39,9 +39,8 @@ function displayAnimalInfo() {
       var image = $("<img class='animal'>");
       
       // Setting the catImage src attribute to imageUrl
-      image.attr("src", stillImgURL);
+      image.attr("src", animatedImgURL);
       image.attr("alt", "image");
-
       image.attr("data-still-img", stillImgURL);
       image.attr("data-animated-img", animatedImgURL);
       image.attr("data-state", "still");
