@@ -20,7 +20,8 @@ function displayAnimalInfo() {
   
   console.log(response);
 
-  $("#animals-view").empty();
+  //$("#animals-view").empty();
+	$(".carousel-inner").empty();
   
   var arrayResult = response.data;
 
