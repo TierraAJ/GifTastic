@@ -51,10 +51,10 @@ function displayAnimalInfo() {
       // Putting the entire animal type above the previous animal types
       //$("#animals-view").prepend(animalDiv);
 	  $(".carousel-inner").prepend(animalDiv);
-	  $(".carousel-item").first().addClass('active');
   }
   });
-
+	  //Make first Bootstrap carousel item active
+	  $(".carousel-item").first().addClass('active');
 }
 
 // Function for displaying animal data
