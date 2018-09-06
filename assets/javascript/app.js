@@ -54,8 +54,6 @@ function displayAnimalInfo() {
 	  $(".carousel-inner").prepend(animalDiv);
   }
   });
-	  //Make first Bootstrap carousel item active
-	  $(".carousel-item").first().addClass('active');
 }
 
 // Function for displaying animal data
@@ -103,6 +101,8 @@ $(document).on("click", ".animal-btn", function () {
 	//Empty Bootstrap carousel prior to loading new images 
 	$(".carousel-inner").empty();
 	displayAnimalInfo();
+	//Make first Bootstrap carousel item active
+	$(".carousel-item").first().addClass('active');
 });
 
 $(document).on("click", ".animal", function() {
